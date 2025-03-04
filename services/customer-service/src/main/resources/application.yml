@@ -1,6 +1,9 @@
 spring:
   application:
     name: customer-service
+  cloud:
+    config:
+      enabled: false
   datasource:
     url: jdbc:postgresql://localhost:5433/ClientDB
     username: postgres

@@ -17,4 +17,5 @@ public class ClientResponse {
     private String role;
     private String address;
     private String phone;
+    private String userId;
 }

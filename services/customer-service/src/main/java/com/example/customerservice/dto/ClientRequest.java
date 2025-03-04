@@ -22,11 +22,11 @@ public class ClientRequest {
     @Email(message = "Email must be valid")
     private String email;
 
-    private String password;
-
     @NotNull(message = "Address is required")
     private String address;
 
     @NotNull(message = "Phone is required")
     private String phone;
+
+    private String userId;
 }

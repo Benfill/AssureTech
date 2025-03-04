@@ -6,7 +6,6 @@ import com.example.customerservice.entity.Client;
 import com.example.customerservice.repository.ClientRepository;
 import com.example.customerservice.service.ClientService;
 import lombok.AllArgsConstructor;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,7 +14,6 @@ import java.util.List;
 @AllArgsConstructor
 public class ClientServiceImpl implements ClientService {
     private final ClientRepository clientRepository;
-    private final PasswordEncoder passwordEncoder;
 
     @Override
     public ClientResponse register(ClientRequest clientRequest) {
@@ -42,20 +40,14 @@ public class ClientServiceImpl implements ClientService {
     }
 
     private Client buildClient(ClientRequest clientRequest) {
-        String password = "";
-        if (clientRequest.getPassword() != null) {
-            password = passwordEncoder.encode(clientRequest.getPassword());
-        }else {
-            password = passwordEncoder.encode("password");
-        }
         return Client.builder()
                 .id(clientRequest.getId())
                 .firstName(clientRequest.getFirstName())
                 .lastName(clientRequest.getLastName())
                 .address(clientRequest.getAddress())
-                .password(password)
                 .email(clientRequest.getEmail())
                 .phone(clientRequest.getPhone())
+                .userId(clientRequest.getUserId())
                 .build();
     }
 
@@ -67,6 +59,7 @@ public class ClientServiceImpl implements ClientService {
                 .address(client.getAddress())
                 .email(client.getEmail())
                 .phone(client.getPhone())
+                .userId(client.getUserId())
                 .build();
     }
 }
