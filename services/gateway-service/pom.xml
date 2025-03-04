@@ -9,11 +9,11 @@
 		<version>2.7.18</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.nexuxbank</groupId>
-	<artifactId>gateway</artifactId>
+	<groupId>com.gateway</groupId>
+	<artifactId>service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>gateway</name>
-	<description>NexusBank Gateway Service</description>
+	<description>Gateway Service</description>
 	<properties>
 		<java.version>1.8</java.version>
 		<spring-cloud.version>2021.0.8</spring-cloud.version>

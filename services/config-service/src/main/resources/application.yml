@@ -1,5 +1,5 @@
 server:
-  port: 8087
+  port: 8888
 
 spring:
   application:
@@ -9,4 +9,10 @@ spring:
       server:
         git:
           clone-on-start: true
-          uri: https://github.com/zinebMachrouh/AssureTechConfig.git
+          uri: https://github.com/benfill/AssureTech.git
+          default-label: main
+          search-paths: configs
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/

@@ -1,4 +1,4 @@
-package com.nexuxbank.gateway;
+package com.gateway.service;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
