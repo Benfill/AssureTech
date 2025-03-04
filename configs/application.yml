@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: global-config
+
+global:
+  params:
+    test: "Configuration server is working!"
+
+app:
+  common:
+    timezone: UTC
+    message: "Hello from Config Server"
