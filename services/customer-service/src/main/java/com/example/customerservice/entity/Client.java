@@ -25,9 +25,6 @@ public class Client {
     private String email;
 
     @Column(nullable = false)
-    private String password;
-
-    @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private Role role;
 
@@ -36,4 +33,6 @@ public class Client {
 
     @Column(nullable = false)
     private String phone;
+
+    private String userId;
 }

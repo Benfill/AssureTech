@@ -1,0 +1,166 @@
+body{
+  background-color: var(--white);
+  color: var(--black);
+
+  .header{
+    width: 100%;
+    padding: 10px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    header{
+      background-color: var(--black);
+      width: 50%;
+      padding: 12px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-radius: 200px;
+      color: var(--white);
+
+      h4{
+        font-size: 1.3rem;
+        font-weight: 600;
+      }
+
+      nav{
+        display: flex;
+        align-items: center;
+        gap: 15px;
+
+        a{
+          text-decoration: none;
+          color: var(--white);
+          font-size: 1rem;
+          font-weight: 500;
+          transition: all 0.3s ease;
+
+          &:hover{
+            color: var(--main);
+          }
+
+          &.active{
+            color: var(--main);
+          }
+        }
+      }
+    }
+  }
+
+  .layout{
+    padding: 20px 30px;
+    
+    .clients-header{
+      margin-bottom: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      .actions{
+        display: flex;
+        align-items: center;
+        gap: 15px;
+
+        .search{
+          display: flex;
+          align-items: center;
+          gap: 5px;
+          background-color: #fafafa;
+          padding: 10px;
+          border-radius: 200px;
+          transition: all 0.3s ease;
+
+          input{
+            border: none;
+            outline: none;
+            background-color: transparent;
+            color: var(--black);
+            font-size: 1rem;
+            
+            font-weight: 500;
+          }
+
+
+          button{
+            background-color: transparent;
+            border: none;
+            outline: none;
+            color: var(--black);
+            font-size: 1rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+
+            &:hover{
+              color: var(--main);
+            }
+          }
+        }
+
+        .addClient{
+          background-color: var(--main);
+          color: #fafafa;
+          padding: 10px 12px;
+          border-radius: 200px;
+          font-weight: 600;
+          transition: all 0.3s ease;
+          border: none;
+          outline: none;
+          cursor: pointer;
+
+          &:hover{
+            background-color: var(--black);
+          }
+        }
+      }
+    }
+
+    .clients{
+      display: flex;
+      align-items: center;
+      gap: 35px;
+
+      .card{
+        background-color: #fafafa;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 10px;
+        width: 20%;
+        height: fit-content;
+        border-radius: 3px;
+        padding: 4px;
+        color: var(--black);
+        box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+        transition: all 0.3s ease;
+
+        &:hover{
+          box-shadow: rgba(99, 99, 99, 0.4) 0px 2px 8px 0px;
+        }
+
+        .img{
+          width: 50px;
+          height: 50px;
+          border-radius: 50%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+
+        .text_m{
+          font-weight: 700;
+        }
+
+        .text_s{
+          font-weight: 500;
+          font-size: 0.9rem;
+          opacity: 0.7;
+        }
+      }
+    }
+  }
+
+  .container{
+    padding: 20px;
+  }
+}
