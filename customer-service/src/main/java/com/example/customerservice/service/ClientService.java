@@ -9,5 +9,5 @@ import java.util.Optional;
 public interface ClientService {
     ClientResponse register(ClientRequest clientRequest);
     List<ClientResponse> getAllClients();
-    Optional<ClientResponse> getClientById(String id);
+    ClientResponse getClientById(String id);
 }

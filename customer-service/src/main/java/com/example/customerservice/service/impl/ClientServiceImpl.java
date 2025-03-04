@@ -34,9 +34,10 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
-    public Optional<ClientResponse> getClientById(String id) {
+    public ClientResponse getClientById(String id) {
         return clientRepository.findById(id)
-                .map(this::buildClientResponse);
+                .map(this::buildClientResponse)
+                .orElseThrow(() -> new RuntimeException("Client not found"));
     }
 
     private Client buildClient(ClientRequest clientRequest) {
