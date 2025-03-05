@@ -21,8 +21,8 @@ public class SecurityConfig {
     @Bean
     public SecurityWebFilterChain securityWebFilterChain(ServerHttpSecurity http) {
 	http.cors(cors -> cors.configurationSource(corsConfigurationSource())).authorizeExchange(exchanges -> exchanges
-		.pathMatchers("/actuator/**", "/public/**").permitAll().anyExchange().authenticated() // Secure all
-												      // other endpoints
+		.pathMatchers("/actuator/**", "/api/public/**").permitAll().anyExchange().authenticated() // Secure all
+	// other endpoints
 	).oauth2ResourceServer(
 		oauth2 -> oauth2.jwt(jwt -> jwt.jwtAuthenticationConverter(new CustomJwtAuthenticationConverter())))
 		.csrf(ServerHttpSecurity.CsrfSpec::disable); // Disable CSRF for stateless APIs
