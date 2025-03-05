@@ -17,7 +17,8 @@ spring:
 
   mvc:
     pathmatch:
-      matching-strategy: ant_path_matcherjwt:
+      matching-strategy: ant_path_matcher
+jwt:
   header:
     string: Cookie
   signing:
