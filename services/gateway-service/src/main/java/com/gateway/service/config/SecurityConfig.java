@@ -1,4 +1,4 @@
-package com.nexuxbank.gateway.config;
+package com.gateway.service.config;
 
 import java.util.Arrays;
 

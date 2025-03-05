@@ -1,4 +1,4 @@
-package com.nexuxbank.gateway.config;
+package com.gateway.service.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
