@@ -1,0 +1,10 @@
+version: '3.8'
+
+services:
+  config-service:
+    image: config-service
+    container_name: config-service
+    build: .
+    ports:
+      - "8888:8888"
+    restart: always
