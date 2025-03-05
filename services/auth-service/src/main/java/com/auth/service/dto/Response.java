@@ -19,7 +19,6 @@ public class Response {
     private String lastName;
     private String phone;
     private String email;
-    private String password;
     private List<Role> roles = new ArrayList<>();
     private Boolean enable;
     private LocalDateTime createdAt;

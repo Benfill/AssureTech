@@ -46,7 +46,7 @@ public class TokenProvider {
 	extractClaims.put("roles", userDetails.getAuthorities().stream()
 		.map(grantedAuthority -> grantedAuthority.getAuthority()).collect(Collectors.toList()));
 
-	return Jwts.builder().setClaims(extractClaims).setSubject(userDetails.getUsername()).setIssuer("Benfill/Camera")
+	return Jwts.builder().setClaims(extractClaims).setSubject(userDetails.getUsername()).setIssuer("AssurTech")
 		.setIssuedAt(new Date(System.currentTimeMillis()))
 		.setExpiration(new Date(System.currentTimeMillis() + EXPIRATION))
 		.signWith(getSignInKey(), SignatureAlgorithm.HS256).compact();
