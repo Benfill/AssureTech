@@ -24,3 +24,7 @@ eureka:
   client:
     serviceUrl:
       defaultZone: http://localhost:8761/eureka/
+cors:
+  config:
+    allowed:
+      origin: http://localhost:3000
