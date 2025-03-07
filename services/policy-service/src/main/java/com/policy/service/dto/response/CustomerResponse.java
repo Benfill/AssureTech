@@ -1,7 +1,6 @@
 package com.policy.service.dto.response;
 
 import lombok.*;
-import java.time.LocalDate;
 
 @NoArgsConstructor
 @AllArgsConstructor
