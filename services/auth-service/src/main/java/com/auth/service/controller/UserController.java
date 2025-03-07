@@ -35,6 +35,11 @@ public class UserController {
 	return ResponseEntity.ok(service.getAll(page, size));
     }
 
+    @GetMapping("/users/{id}")
+    public ResponseEntity<?> show(@PathVariable(name = "id") Long id) {
+	return ResponseEntity.ok(service.getDetails(id));
+    }
+
     @Secured("ROLE_ADMIN")
     @PutMapping(value = "/admin/users/{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<?> update(@ModelAttribute @Valid Request dto, @PathVariable(name = "id") Long id)
