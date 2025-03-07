@@ -16,6 +16,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ switchToRegister, onLogin }) => {
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
   const validateEmail = (email: string) => {
@@ -30,10 +31,13 @@ const LoginForm: React.FC<LoginFormProps> = ({ switchToRegister, onLogin }) => {
     e.preventDefault();
     setLoading(true);
 
-    // Simulate API call
     await onLogin(email, password);
-    setLoading(false);
-    alert("Logged in successfully!");
+    try {
+      setLoading(false);
+    } catch (e) {
+      setLoading(false);
+      setError(e.response.data.message);
+    }
   };
 
   return (

@@ -1,7 +1,10 @@
 package com.gateway.service.config;
 
+import java.util.Arrays;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -12,7 +15,11 @@ import org.springframework.security.config.web.server.ServerHttpSecurity;
 import org.springframework.security.web.server.SecurityWebFilterChain;
 import org.springframework.security.web.server.authentication.AuthenticationWebFilter;
 import org.springframework.security.web.server.authentication.ServerAuthenticationConverter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.reactive.CorsWebFilter;
 import org.springframework.web.server.ServerWebExchange;
+import org.springframework.web.util.pattern.PathPatternParser;
+import org.springframework.web.cors.reactive.UrlBasedCorsConfigurationSource;
 
 import com.gateway.service.exception.InvalidTokenException;
 import com.gateway.service.exception.TokenExpiredException;
@@ -27,6 +34,9 @@ public class SecurityConfig {
 
     @Autowired
     private JwtValidator jwtValidator;
+
+	@Value("${cors.config.allowed.origin}")
+    private String ALLOWED_ORIGIN;
 
     @Bean
     public SecurityWebFilterChain securityWebFilterChain(ServerHttpSecurity http) {
@@ -53,6 +63,24 @@ public class SecurityConfig {
 		})).csrf(ServerHttpSecurity.CsrfSpec::disable);
 
 	return http.build();
+    }
+
+	@Bean
+    public CorsWebFilter corsWebFilter() {
+        CorsConfiguration config = new CorsConfiguration();
+        
+        config.setAllowedOrigins(Arrays.asList(ALLOWED_ORIGIN));
+        config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
+        config.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type", "X-Requested-With", "Accept",
+            "Origin", "Access-Control-Request-Method", "Access-Control-Request-Headers"));
+        config.setExposedHeaders(Arrays.asList("Access-Control-Allow-Origin", "Access-Control-Allow-Credentials"));
+        config.setAllowCredentials(true);
+        config.setMaxAge(3600L);
+
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource(new PathPatternParser());
+        source.registerCorsConfiguration("/api/**", config);
+
+        return new CorsWebFilter(source);
     }
 
     private Mono<Void> handleTokenExpiredException(ServerWebExchange exchange, Throwable ex) {

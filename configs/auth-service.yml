@@ -26,8 +26,4 @@ jwt:
   authorities:
     key: roles
   token:
-    validity: '3600000'
-cors:
-  config:
-    allowed:
-      origin: http://localhost:3000
+    validity: "3600000"
