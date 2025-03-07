@@ -74,6 +74,12 @@ public class UserService implements IUserService {
     }
 
     @Override
+    public Response getDetails(Long id) {
+	User user = getById(id);
+	return mapper.entityToDto(user);
+    }
+
+    @Override
     public GlobalResp assignRoles(Long id, RolesDto dto) {
 	User user = getById(id);
 
