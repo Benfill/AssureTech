@@ -19,4 +19,6 @@ public interface IUserService {
     GlobalResp delete(Long id);
 
     GlobalResp assignRoles(Long id, RolesDto roles);
+
+    Response getDetails(Long id);
 }
