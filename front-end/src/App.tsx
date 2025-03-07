@@ -11,11 +11,12 @@ const App: React.FC = () => {
     <AuthProvider>
       <Router>
         <Header />
-        <div className="container">
+        <div >
           <Routes>
             {/* Protected Route */}
             <Route element={<ProtectedRoute />}>
               <Route path="/" element={<Clients />} />
+
             </Route>
 
             {/* Public Route */}
