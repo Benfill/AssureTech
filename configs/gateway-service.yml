@@ -22,7 +22,7 @@ spring:
         - id: auth-service
           uri: lb://auth-service
           predicates:
-            - Path=/api/auth/**
+            - Path=/api/auth/**,/api/users/**
 
 eureka:
   client:
@@ -31,7 +31,7 @@ eureka:
 cors:
   config:
     allowed:
-      origin: http://localhost:3000
+      origin: http://localhost:5173
 jwt:
   header:
     string: Cookie

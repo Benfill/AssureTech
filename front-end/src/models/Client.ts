@@ -3,7 +3,7 @@ export type Client = {
     firstName: string,
     lastName: string,
     email: string,
-    password ?: string,
-    address: string,
+    address : string,
     phone: string,
+    userId: string
 }

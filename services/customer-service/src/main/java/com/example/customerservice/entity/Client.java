@@ -1,6 +1,5 @@
 package com.example.customerservice.entity;
 
-import com.example.customerservice.dto.enums.Role;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -24,9 +23,6 @@ public class Client {
     @Column(unique = true, nullable = false)
     private String email;
 
-    @Column(nullable = false)
-    @Enumerated(EnumType.STRING)
-    private Role role;
 
     @Column(nullable = false)
     private String address;
