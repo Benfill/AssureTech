@@ -86,6 +86,7 @@ The system is built using a microservices architecture with a ReactJS frontend a
 ## Project Links
 - JIRA: [https://benfill.atlassian.net/jira/software/projects/AS/](https://benfill.atlassian.net/jira/software/projects/AS/)
 - GitHub: [https://github.com/Benfill/AssureTech](https://github.com/Benfill/AssureTech)
+- UML: [https://github.com/Benfill/AssureTech/UML](https://github.com/Benfill/AssureTech/tree/main/UML)
 
 ## Getting Started
 
