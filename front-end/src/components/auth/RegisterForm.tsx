@@ -10,11 +10,15 @@ import {
 interface RegisterFormProps {
   switchToLogin: () => void;
   onRegister: (name: string, email: string, password: string) => Promise<void>;
+  setError: React.Dispatch<React.SetStateAction<string>>;
+  setSuccess: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const RegisterForm: React.FC<RegisterFormProps> = ({
   switchToLogin,
   onRegister,
+  setError,
+  setSuccess,
 }) => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -39,9 +43,16 @@ const RegisterForm: React.FC<RegisterFormProps> = ({
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    await onRegister(name, email, password);
-    setLoading(false);
-    alert("Registered successfully!");
+    await onRegister(name, email, password)
+      .then(() => {
+        setSuccess("Registered successfully!");
+      })
+      .catch((e) => {
+        setError(e.response.data.message);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   };
 
   return (

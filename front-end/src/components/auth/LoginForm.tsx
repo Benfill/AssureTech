@@ -10,13 +10,19 @@ import {
 interface LoginFormProps {
   switchToRegister: () => void;
   onLogin: (email: string, password: string) => Promise<void>;
+  setError: React.Dispatch<React.SetStateAction<string>>;
+  setSuccess: React.Dispatch<React.SetStateAction<string>>;
 }
 
-const LoginForm: React.FC<LoginFormProps> = ({ switchToRegister, onLogin }) => {
+const LoginForm: React.FC<LoginFormProps> = ({
+  switchToRegister,
+  onLogin,
+  setError,
+  setSuccess,
+}) => {
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
   const validateEmail = (email: string) => {
@@ -31,13 +37,17 @@ const LoginForm: React.FC<LoginFormProps> = ({ switchToRegister, onLogin }) => {
     e.preventDefault();
     setLoading(true);
 
-    await onLogin(email, password);
-    try {
-      setLoading(false);
-    } catch (e) {
-      setLoading(false);
-      setError(e.response.data.message);
-    }
+    await onLogin(email, password)
+      .then((d) => {
+        console.log(d);
+        setSuccess("Logged in successfully");
+      })
+      .catch((e) => {
+        setError(e.response.data.message);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   };
 
   return (
