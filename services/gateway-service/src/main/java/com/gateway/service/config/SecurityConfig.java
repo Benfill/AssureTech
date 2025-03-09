@@ -50,8 +50,9 @@ public class SecurityConfig {
 
 	http.authorizeExchange(
 		exchanges -> exchanges.pathMatchers("/api/public/**").permitAll().pathMatchers("/api/auth/**")
-			.permitAll().pathMatchers("/api/private/**").authenticated().anyExchange().denyAll())
-		.addFilterAt(authenticationWebFilter, SecurityWebFiltersOrder.HTTP_BASIC)
+			.permitAll().pathMatchers("/api/user/**").authenticated().anyExchange().denyAll())
+		.addFilterAt(authenticationWebFilter, SecurityWebFiltersOrder.AUTHENTICATION) // Apply filter only to
+											      // authenticated endpoints
 		.exceptionHandling(exceptionHandling -> exceptionHandling.authenticationEntryPoint((exchange, ex) -> {
 		    if (ex instanceof TokenExpiredException) {
 			return handleTokenExpiredException(exchange, ex);

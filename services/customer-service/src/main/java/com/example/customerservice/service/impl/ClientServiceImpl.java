@@ -1,5 +1,6 @@
 package com.example.customerservice.service.impl;
 
+import com.example.customerservice.config.UserClient;
 import com.example.customerservice.dto.ClientRequest;
 import com.example.customerservice.dto.ClientResponse;
 import com.example.customerservice.entity.Client;
@@ -14,11 +15,16 @@ import java.util.List;
 @AllArgsConstructor
 public class ClientServiceImpl implements ClientService {
     private final ClientRepository clientRepository;
+    private final UserClient userClient;
 
     @Override
     public ClientResponse register(ClientRequest clientRequest) {
         if (clientRepository.existsByEmail(clientRequest.getEmail())) {
             throw new RuntimeException("Client already exists");
+        }
+
+        if (userClient.getUserById(clientRequest.getUserId()) == null) {
+            throw new RuntimeException("User not found");
         }
 
         Client newClient = buildClient(clientRequest);
