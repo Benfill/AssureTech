@@ -1,0 +1,41 @@
+version: '3.8'
+
+services:
+  discovery-service:
+    image: discovery-service
+    build: ./discovery-service  # Path to the Eureka Server Dockerfile
+    container_name: discovery-service
+    ports:
+      - "8761:8761"
+    networks:
+      - microservices-network
+
+  config-service:
+    image: config-service
+    build: ./config-service  # Path to the Config Server Dockerfile
+    container_name: config-service
+    ports:
+      - "8888:8888"
+    environment:
+      - SPRING_PROFILES_ACTIVE=native
+    networks:
+      - microservices-network
+
+  gateway-service:
+    image: gateway-service
+    build: ./gateway-service  # Path to the Gateway Service Dockerfile
+    container_name: gateway-service
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_CLOUD_CONFIG_URI=http://config-service:8888
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://discovery-service:8761/eureka/
+    depends_on:
+      - discovery-service
+      - config-service
+    networks:
+      - microservices-network
+
+networks:
+  microservices-network:
+    driver: bridge
