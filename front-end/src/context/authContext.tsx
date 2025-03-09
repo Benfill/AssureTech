@@ -6,7 +6,7 @@ import React, {
   ReactNode,
   useEffect,
 } from "react";
-import { loginHandler, logoutHandler } from "../apis/auth";
+import { loginHandler, logoutHandler, registerHandler } from "../apis/auth";
 import { User } from "../models/User";
 import { StorageKeys, StorageUtility } from "../utils/localStrorageUtil";
 
@@ -72,9 +72,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   };
 
   const register = async (name: string, email: string, password: string) => {
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-    setIsAuthenticated(true);
-    setUser(null);
+    await registerHandler(name, email, password);
   };
 
   return (

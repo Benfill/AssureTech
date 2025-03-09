@@ -17,8 +17,18 @@ export const loginHandler = async (email: string, password: string): Promise<Axi
     }
 };
 
-export const registerHandler = async () => {
-    
+export const registerHandler = async (name:string, email: string, password: string): Promise<AxiosResponse<User | null>> => {
+    try {
+        const payload = {firstName: name, email, password };
+        console.log("Request Payload:", payload);
+
+        const resp = await axios.post(API_URL + "/auth/register", payload);
+
+        return resp;
+    } catch (error) {
+        console.error("Error during register request:", error);
+        throw error;
+    }
 }
 
 export const logoutHandler = async () => {

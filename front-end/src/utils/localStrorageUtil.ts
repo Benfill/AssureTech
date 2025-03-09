@@ -12,7 +12,6 @@ const StorageKeys = {
         localStorage.setItem(key, jsonValue);
       } catch (e) {
         console.log(e);
-        
       }
     }
   
