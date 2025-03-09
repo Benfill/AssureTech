@@ -1,21 +1,34 @@
-import { Route, Routes } from 'react-router-dom'
-import './App.css'
-import Header from './components/Header'
-import Clients from './components/clients/Clients'
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Header from "./components/Header";
+import { AuthProvider } from "./context/authContext";
+import Clients from "./components/clients/Clients";
+import AuthPage from "./pages/auth/AuthPage";
+import ProtectedRoute from "./utils/ProtectedRoute";
 
-function App() {
-
+const App: React.FC = () => {
   return (
-    <>
-      <Header />
-      <div className="container">
-        <Routes>
-          <Route path="/" element={<Clients />} />
-          <Route path='/*' element={<h1>Not Found</h1>} />
-        </Routes>
-      </div>
-    </>
-  )
-}
+    <AuthProvider>
+      <Router>
+        <Header />
+        <div >
+          <Routes>
+            {/* Protected Route */}
+            <Route element={<ProtectedRoute />}>
+              <Route path="/" element={<Clients />} />
 
-export default App
+            </Route>
+
+            {/* Public Route */}
+            <Route path="/auth" element={<AuthPage />} />
+
+            {/* Fallback Route */}
+            <Route path="/*" element={<h1>Not Found</h1>} />
+          </Routes>
+        </div>
+      </Router>
+    </AuthProvider>
+  );
+};
+
+export default App;

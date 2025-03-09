@@ -43,7 +43,7 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain configure(HttpSecurity http) throws Exception {
-	http.cors(cors -> cors.configurationSource(corsConfigurationSource())).csrf().disable().httpBasic().and()
+	http.csrf().disable().httpBasic().and()
 		.authorizeRequests().antMatchers("/api/auth/**").permitAll().antMatchers("/images/**").permitAll()
 		.antMatchers("/api/user/**").hasAnyRole("ADMIN", "USER").antMatchers("/api/admin/**").hasRole("ADMIN")
 		.anyRequest().authenticated().and().sessionManagement()
@@ -57,23 +57,6 @@ public class SecurityConfig {
 		.addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class);
 
 	return http.build();
-    }
-
-    @Bean
-    public CorsConfigurationSource corsConfigurationSource() {
-	CorsConfiguration configuration = new CorsConfiguration();
-	configuration.setAllowedOrigins(Arrays.asList(ALLOWED_ORIGIN));
-	configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
-	configuration.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type", "X-Requested-With", "Accept",
-		"Origin", "Access-Control-Request-Method", "Access-Control-Request-Headers"));
-	configuration
-		.setExposedHeaders(Arrays.asList("Access-Control-Allow-Origin", "Access-Control-Allow-Credentials"));
-	configuration.setAllowCredentials(true);
-	configuration.setMaxAge(3600L);
-
-	UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-	source.registerCorsConfiguration("/api/**", configuration);
-	return source;
     }
 
     // Disable security
