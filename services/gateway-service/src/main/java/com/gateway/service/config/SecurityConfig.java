@@ -48,9 +48,9 @@ public class SecurityConfig {
 	AuthenticationWebFilter authenticationWebFilter = new AuthenticationWebFilter(authenticationManager);
 	authenticationWebFilter.setServerAuthenticationConverter(authenticationConverter);
 
-	http.authorizeExchange(
-		exchanges -> exchanges.pathMatchers("/api/public/**").permitAll().pathMatchers("/api/auth/**")
-			.permitAll().pathMatchers("/api/user/**").authenticated().anyExchange().denyAll())
+	http.authorizeExchange(exchanges -> exchanges.pathMatchers("/api/public/**").permitAll()
+		.pathMatchers("/api/auth/**").permitAll().pathMatchers("/api/users/**").authenticated()
+		.pathMatchers("/api/admin/**").authenticated().anyExchange().denyAll())
 		.addFilterAt(authenticationWebFilter, SecurityWebFiltersOrder.AUTHENTICATION) // Apply filter only to
 											      // authenticated endpoints
 		.exceptionHandling(exceptionHandling -> exceptionHandling.authenticationEntryPoint((exchange, ex) -> {
