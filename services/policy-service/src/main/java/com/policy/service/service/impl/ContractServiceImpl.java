@@ -36,7 +36,8 @@ public class ContractServiceImpl implements ContractService {
 
     public ContractResponse addContract(ContractRequest contract){
         if (!repository.existsByTypeAndClientId(contract.getType(), contract.getClientId())) {
-            CustomerResponse customerResponse = customerClient.getCustomerById(contract.getClientId());
+            // CustomerResponse customerResponse = customerClient.getCustomerById(contract.getClientId());
+            CustomerResponse customerResponse = CustomerResponse.builder().build(); 
             logger.info("FETCHING CUSTOMER..., {}", customerResponse.toString());
             if (customerResponse != null) {
                 Contract contractToSave = mapper.contractRequestToContract(contract);
