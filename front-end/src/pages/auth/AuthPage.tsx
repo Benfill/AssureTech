@@ -1,13 +1,27 @@
-import React, { useState } from "react";
-import LoginForm from "../../components/auth/login/LoginForm";
-import RegisterForm from "../../components/auth/register/RegisterForm";
+import React, { useEffect, useState } from "react";
+import LoginForm from "../../components/auth/LoginForm";
+import RegisterForm from "../../components/auth/RegisterForm";
 import { useAuth } from "../../context/authContext";
 import { Navigate, useNavigate } from "react-router-dom";
+import { Alert } from "@mui/material";
 
 const AuthPage: React.FC = () => {
   const [isLogin, setIsLogin] = useState(true);
   const { login, register, isAuthenticated } = useAuth();
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const timeRef = setTimeout(() => {
+      setError("");
+      setSuccess("");
+    }, 3000);
+
+    return () => {
+      clearTimeout(timeRef);
+    };
+  }, [success, error]);
 
   if (isAuthenticated) {
     return <Navigate to="/" replace />;
@@ -24,22 +38,28 @@ const AuthPage: React.FC = () => {
     password: string
   ) => {
     await register(name, email, password);
-    navigate("/"); // Redirect to the home page after registration
+    setIsLogin(true);
   };
 
   return (
     <div className="min-h-screen bg-gray-100">
+      {success && <Alert severity="success">{success}</Alert>}
+      {error && <Alert severity="error">{error}</Alert>}
       <div className="min-h-screen flex">
         <div className="w-full lg:w-1/2 flex items-center justify-center  p-8">
           {isLogin ? (
             <LoginForm
               switchToRegister={() => setIsLogin(false)}
               onLogin={handleLogin}
+              setError={setError}
+              setSuccess={setSuccess}
             />
           ) : (
             <RegisterForm
               switchToLogin={() => setIsLogin(true)}
               onRegister={handleRegister}
+              setError={setError}
+              setSuccess={setSuccess}
             />
           )}
         </div>

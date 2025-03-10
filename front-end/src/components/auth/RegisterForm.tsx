@@ -1,22 +1,31 @@
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faSignInAlt,
+  faUserPlus,
   faEnvelope,
   faEye,
   faEyeSlash,
 } from "@fortawesome/free-solid-svg-icons";
 
-interface LoginFormProps {
-  switchToRegister: () => void;
-  onLogin: (email: string, password: string) => Promise<void>;
+interface RegisterFormProps {
+  switchToLogin: () => void;
+  onRegister: (name: string, email: string, password: string) => Promise<void>;
+  setError: React.Dispatch<React.SetStateAction<string>>;
+  setSuccess: React.Dispatch<React.SetStateAction<string>>;
 }
 
-const LoginForm: React.FC<LoginFormProps> = ({ switchToRegister, onLogin }) => {
+const RegisterForm: React.FC<RegisterFormProps> = ({
+  switchToLogin,
+  onRegister,
+  setError,
+  setSuccess,
+}) => {
   const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [name, setName] = useState("");
   const [loading, setLoading] = useState(false);
 
   const validateEmail = (email: string) => {
@@ -27,35 +36,54 @@ const LoginForm: React.FC<LoginFormProps> = ({ switchToRegister, onLogin }) => {
     return password.length >= 8;
   };
 
+  const validateConfirmPassword = () => {
+    return password === confirmPassword;
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-
-    await onLogin(email, password);
-    try {
-      setLoading(false);
-    } catch (e) {
-      setLoading(false);
-      setError(e.response.data.message);
-    }
+    await onRegister(name, email, password)
+      .then(() => {
+        setSuccess("Registered successfully!");
+      })
+      .catch((e) => {
+        setError(e.response.data.message);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   };
 
   return (
-    <div className="w-full max-w-md p-8">
-      <div className="bg-white rounded-2xl shadow-xl p-6">
+    <div className="w-full max-w-md">
+      <div className="bg-white rounded-2xl shadow-xl p-10">
         <div className="text-center mb-8">
           <div className="inline-flex items-center justify-center w-16 h-16 bg-red-100 rounded-full mb-4">
-            <FontAwesomeIcon
-              icon={faSignInAlt}
-              className="text-red-600 fa-lg"
-            />
+            <FontAwesomeIcon icon={faUserPlus} className="text-red-600 fa-lg" />
           </div>
-          <h2 className="text-2xl font-bold text-gray-800">Welcome Back!</h2>
-          <p className="text-gray-600 mt-2">Please sign in to continue</p>
+          <h2 className="text-2xl font-bold text-gray-800">Create Account</h2>
+          <p className="text-gray-600 mt-2">Get started with your account</p>
         </div>
 
         <form onSubmit={handleSubmit}>
-          <div className="mb-6 p-4">
+          <div className="mb-6">
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Full Name
+            </label>
+            <div className="relative">
+              <input
+                type="text"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                required
+                className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-red-600 focus:border-transparent transition-colors"
+                placeholder="John Doe"
+              />
+            </div>
+          </div>
+
+          <div className="mb-6">
             <label className="block text-sm font-medium text-gray-700 mb-2">
               Email Address
             </label>
@@ -111,11 +139,45 @@ const LoginForm: React.FC<LoginFormProps> = ({ switchToRegister, onLogin }) => {
             )}
           </div>
 
+          <div className="mb-6">
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Confirm Password
+            </label>
+            <div className="relative">
+              <input
+                type={showConfirmPassword ? "text" : "password"}
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                required
+                className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-red-600 focus:border-transparent transition-colors"
+                placeholder="••••••••"
+              />
+              <button
+                type="button"
+                className="absolute right-2 text-gray-400 hover:text-gray-600"
+                onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+              >
+                <FontAwesomeIcon
+                  icon={showConfirmPassword ? faEyeSlash : faEye}
+                  className="w-6 h-6"
+                />
+              </button>
+            </div>
+            {confirmPassword && !validateConfirmPassword() && (
+              <p className="mt-2 text-sm text-red-600">
+                Passwords do not match
+              </p>
+            )}
+          </div>
+
           <button
             type="submit"
             className="w-full bg-red-600 text-white py-3 rounded-lg font-semibold hover:bg-red-700 focus:ring-4 focus:ring-red-600 focus:ring-opacity-50 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
             disabled={
-              loading || !validateEmail(email) || !validatePassword(password)
+              loading ||
+              !validateEmail(email) ||
+              !validatePassword(password) ||
+              !validateConfirmPassword()
             }
           >
             {loading ? (
@@ -143,18 +205,18 @@ const LoginForm: React.FC<LoginFormProps> = ({ switchToRegister, onLogin }) => {
                 Processing...
               </span>
             ) : (
-              "Sign In"
+              "Create Account"
             )}
           </button>
 
           <p className="mt-6 text-center text-gray-600">
-            Don't have an account?{" "}
+            Already have an account?{" "}
             <button
               type="button"
               className="ml-1 text-red-600 hover:text-red-700 font-semibold focus:outline-none"
-              onClick={switchToRegister}
+              onClick={switchToLogin}
             >
-              Sign up
+              Sign in
             </button>
           </p>
         </form>
@@ -163,4 +225,4 @@ const LoginForm: React.FC<LoginFormProps> = ({ switchToRegister, onLogin }) => {
   );
 };
 
-export default LoginForm;
+export default RegisterForm;

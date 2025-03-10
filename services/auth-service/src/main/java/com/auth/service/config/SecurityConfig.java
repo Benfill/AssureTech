@@ -1,11 +1,8 @@
 package com.auth.service.config;
 
-import java.util.Arrays;
-
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
@@ -21,9 +18,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.CorsConfigurationSource;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import com.auth.service.security.jwt.JwtAuthenticationFilter;
 import com.auth.service.security.service.UserDetailsServiceImpl;
@@ -31,9 +25,6 @@ import com.auth.service.security.service.UserDetailsServiceImpl;
 @EnableWebSecurity
 @Configuration
 public class SecurityConfig {
-
-    @Value("${cors.config.allowed.origin}")
-    private String ALLOWED_ORIGIN;
 
     @Autowired
     UserDetailsServiceImpl userDetailsService;
@@ -43,10 +34,9 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain configure(HttpSecurity http) throws Exception {
-	http.csrf().disable().httpBasic().and()
-		.authorizeRequests().antMatchers("/api/auth/**").permitAll().antMatchers("/images/**").permitAll()
-		.antMatchers("/api/user/**").hasAnyRole("ADMIN", "USER").antMatchers("/api/admin/**").hasRole("ADMIN")
-		.anyRequest().authenticated().and().sessionManagement()
+	http.csrf().disable().httpBasic().and().authorizeRequests().antMatchers("/api/auth/**").permitAll()
+		.antMatchers("/images/**").permitAll().antMatchers("/api/user/**").hasAnyRole("ADMIN", "USER")
+		.antMatchers("/api/admin/**").hasRole("ADMIN").anyRequest().authenticated().and().sessionManagement()
 		.sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().exceptionHandling()
 		.authenticationEntryPoint((request, response, authException) -> response
 			.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized"))
