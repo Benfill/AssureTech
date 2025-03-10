@@ -1,3 +1,5 @@
+import { Claim } from "./Claim";
+
 export interface Contract {
     id:number;
     type: 'CAR'| 'HOME' | 'HEALTH';
@@ -5,4 +7,5 @@ export interface Contract {
     expirationDate: Date | null;
     coverageAmount: number;
     clientId: number;
+    claims: Claim[];
 }
