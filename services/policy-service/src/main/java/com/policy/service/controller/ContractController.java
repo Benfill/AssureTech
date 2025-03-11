@@ -12,7 +12,7 @@ import com.policy.service.dto.request.ContractRequest;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/api/contracts")
+@RequestMapping("/api/user/contracts")
 public class ContractController {
     @Autowired ContractService contractService;
 

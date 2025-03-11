@@ -34,7 +34,7 @@ const NewClaim: React.FC<NewClaimProps> = ({ onCancel }) => {
         const fetchContracts = async () => {
             setLoading(true);
             try {
-                const response = await axios.get("http://localhost:8082/api/contracts");
+                const response = await axios.get("http://localhost:8080/api/contracts");
                 if (response.status === 200) {
                     setContracts(response.data);
                 }
@@ -87,7 +87,7 @@ const NewClaim: React.FC<NewClaimProps> = ({ onCancel }) => {
                 date: formatDate(claim.date)
             };
             
-            const response = await axios.post("http://localhost:8082/api/claims", formattedClaim);
+            const response = await axios.post("http://localhost:8080/api/claims", formattedClaim);
             if (response.status === 201 || response.status === 200) {
                 onCancel(); // Return to claims list on success
             }

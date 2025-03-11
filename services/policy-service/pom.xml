@@ -95,20 +95,19 @@
 		</dependency>
 
         <!-- eureka client -->
-<!-- 
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
 		</dependency>
- -->
+		
         <!-- config client -->
-<!-- 
+
         <dependency>
         <groupId>org.springframework.cloud</groupId>
         <artifactId>spring-cloud-starter-config</artifactId>
         </dependency>
 
- -->
+
         <!-- devtools -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

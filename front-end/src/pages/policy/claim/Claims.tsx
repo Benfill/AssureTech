@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import { Claim } from "../../../models/Claim";
 import NewClaim from "./NewClaim";
 
-const url = "http://localhost:8082/api/claims";
+const url = "http://localhost:8080/api/claims";
 
 const formatDate = (date: Date): string => {
     const year = date.getFullYear();

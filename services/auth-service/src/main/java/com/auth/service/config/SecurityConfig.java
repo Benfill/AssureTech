@@ -35,8 +35,9 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain configure(HttpSecurity http) throws Exception {
 	http.csrf().disable().httpBasic().and().authorizeRequests().antMatchers("/api/auth/**").permitAll()
-		.antMatchers("/images/**").permitAll().antMatchers("/api/user/**").hasAnyRole("ADMIN", "USER")
-		.antMatchers("/api/admin/**").hasRole("ADMIN").anyRequest().authenticated().and().sessionManagement()
+		.antMatchers("/api/public/**").permitAll().antMatchers("/images/**").permitAll()
+		.antMatchers("/api/user/**").hasAnyRole("ADMIN", "USER").antMatchers("/api/admin/**").hasRole("ADMIN")
+		.anyRequest().authenticated().and().sessionManagement()
 		.sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().exceptionHandling()
 		.authenticationEntryPoint((request, response, authException) -> response
 			.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized"))

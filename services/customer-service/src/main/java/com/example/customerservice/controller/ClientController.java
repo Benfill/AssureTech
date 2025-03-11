@@ -18,21 +18,21 @@ import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
 @RestController
-@RequestMapping("/api/user/customers")
+@RequestMapping("/api")
 public class ClientController {
     private final ClientService clientService;
 
-    @GetMapping
+    @GetMapping("/user/customers")
     public ResponseEntity<List<ClientResponse>> getAllClients() {
 	return ResponseEntity.ok(clientService.getAllClients());
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/public/customers/{id}")
     public ResponseEntity<ClientResponse> getClientById(@PathVariable String id) {
 	return ResponseEntity.ok(clientService.getClientById(id));
     }
 
-    @PostMapping
+    @PostMapping("/user/customers")
     public ResponseEntity<ClientResponse> createClient(@RequestBody ClientRequest clientRequest) {
 	return ResponseEntity.ok(clientService.register(clientRequest));
     }

@@ -18,13 +18,13 @@ const Header = () => {
             to="/policy/contracts"
             className="text-white text-base font-medium transition-all duration-300 ease-in-out hover:text-main"
           >
-            Contracts 
+            Contracts
           </NavLink>
           <NavLink
             to="/policy/claims"
             className="text-white text-base font-medium transition-all duration-300 ease-in-out hover:text-main"
           >
-            Claims 
+            Claims
           </NavLink>
           <NavLink
             to="/about"

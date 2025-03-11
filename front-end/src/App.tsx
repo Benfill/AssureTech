@@ -26,9 +26,8 @@ const App: React.FC = () => {
             </Route>
 
             {/* Public Route */}
-            <Route path="/auth" element={<AuthPage />} /
+            <Route path="/auth" element={<AuthPage />} />
 
-            {/* Fallback Route */}
             <Route path="/*" element={<h1>Not Found</h1>} />
           </Routes>
         </div>

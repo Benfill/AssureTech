@@ -9,6 +9,6 @@ import com.example.customerservice.dto.UserDTO;
 @FeignClient(name = "auth-service")
 public interface UserClient {
 
-    @GetMapping("/api/users/{id}")
+    @GetMapping("/api/public/users/{id}")
     UserDTO getUserById(@PathVariable Long id);
 }
