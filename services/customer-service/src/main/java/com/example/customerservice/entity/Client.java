@@ -30,5 +30,5 @@ public class Client {
     @Column(nullable = false)
     private String phone;
 
-    private String userId;
+    private Long userId;
 }

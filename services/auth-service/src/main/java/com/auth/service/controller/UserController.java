@@ -30,7 +30,7 @@ public class UserController {
 
     @Secured("ROLE_ADMIN")
     @GetMapping("/admin/users")
-    public ResponseEntity<?> index(@RequestParam(defaultValue = "1", name = "page") Integer page,
+    public ResponseEntity<?> index(@RequestParam(defaultValue = "0", name = "page") Integer page,
 	    @RequestParam(defaultValue = "3", name = "size") Integer size) {
 	return ResponseEntity.ok(service.getAll(page, size));
     }
@@ -58,5 +58,11 @@ public class UserController {
     public ResponseEntity<?> assignRoles(@RequestBody @Valid RolesDto roles, @PathVariable(name = "id") Long id)
 	    throws IOException {
 	return ResponseEntity.ok(service.assignRoles(id, roles));
+    }
+
+    @Secured("ROLE_ADMIN")
+    @GetMapping("/admin/users/roles")
+    public ResponseEntity<?> getRoles() {
+	return ResponseEntity.ok(service.getAllRoles());
     }
 }

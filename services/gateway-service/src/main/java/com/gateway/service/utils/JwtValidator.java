@@ -79,7 +79,9 @@ public class JwtValidator {
     }
 
     public List<String> extractRoles(String token) {
-	return extractClaims(token, claims -> (List<String>) claims.get("roles"));
+	List<String> roles = extractClaims(token, claims -> (List<String>) claims.get("roles"));
+	logger.debug("Extracted roles from token: " + roles);
+	return roles;
     }
 
     public Date extractExpiration(String token) {

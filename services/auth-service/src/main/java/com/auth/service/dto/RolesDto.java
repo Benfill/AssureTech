@@ -10,6 +10,6 @@ import lombok.Data;
 
 @Data
 public class RolesDto {
-    @NotNull(message = "Email should not be null")
+    @NotNull(message = "Roles should not be null")
     List<ERole> roles;
 }
