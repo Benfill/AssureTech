@@ -14,7 +14,7 @@ spring:
         - id: customer-service
           uri: lb://customer-service
           predicates:
-            - Path=/api/customers/**
+            - Path=/api/user/customers/**
         - id: policy-service
           uri: lb://policy-service
           predicates:
@@ -22,7 +22,7 @@ spring:
         - id: auth-service
           uri: lb://auth-service
           predicates:
-            - Path=/api/auth/**,/api/users/**
+            - Path=/api/auth/**,/api/users/**,/api/admin/users/**
 
 eureka:
   client:

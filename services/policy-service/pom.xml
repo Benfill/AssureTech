@@ -31,6 +31,17 @@
 		<spring-cloud.version>2023.0.5</spring-cloud.version>
 	</properties>
 	<dependencies>
+
+        <dependency>
+            <groupId>io.projectreactor</groupId>
+            <artifactId>reactor-core</artifactId>
+            <version>3.6.6</version> <!-- Use the latest version compatible with your Spring version -->
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-webflux</artifactId>
+        </dependency>
+
 		<!-- validation -->
 		<dependency> 
 			<groupId>org.springframework.boot</groupId> 
@@ -84,11 +95,12 @@
 		</dependency>
 
         <!-- eureka client -->
+<!-- 
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
 		</dependency>
-        
+ -->
         <!-- config client -->
 <!-- 
         <dependency>

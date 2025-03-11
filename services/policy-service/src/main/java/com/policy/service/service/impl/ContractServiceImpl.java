@@ -2,7 +2,7 @@ package com.policy.service.service.impl;
 
 import com.policy.service.service.ContractService;
 import com.policy.service.exceptions.ResourceNotFoundException;
-import com.policy.service.feign.CustomerClient;
+// import com.policy.service.feign.CustomerClient;
 import com.policy.service.helpers.ContractHelper;
 import com.policy.service.exceptions.GeneralException;
 import com.policy.service.exceptions.ResourceAlreadyExistsException;
@@ -21,23 +21,24 @@ import com.policy.service.dto.response.CustomerResponse;
 import com.policy.service.repository.ContractRepository;
 import com.policy.service.entity.Contract;
 import com.policy.service.mapper.ContractMapper;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+// import org.slf4j.Logger;
+// import org.slf4j.LoggerFactory;
 
 @Service
 public class ContractServiceImpl implements ContractService {
 
-    final private Logger logger = LoggerFactory.getLogger(ContractHelper.class);
+    // final private Logger logger = LoggerFactory.getLogger(ContractHelper.class);
 
     @Autowired ContractRepository repository;
     @Autowired ContractMapper mapper;
     @Autowired private ContractHelper helper;
-    @Autowired private CustomerClient customerClient;
+    // @Autowired private CustomerClient customerClient;
 
     public ContractResponse addContract(ContractRequest contract){
         if (!repository.existsByTypeAndClientId(contract.getType(), contract.getClientId())) {
-            CustomerResponse customerResponse = customerClient.getCustomerById(contract.getClientId());
-            logger.info("FETCHING CUSTOMER..., {}", customerResponse.toString());
+            // CustomerResponse customerResponse = customerClient.getCustomerById(contract.getClientId());
+            CustomerResponse customerResponse = CustomerResponse.builder().build(); 
+            // logger.info("FETCHING CUSTOMER..., {}", customerResponse.toString());
             if (customerResponse != null) {
                 Contract contractToSave = mapper.contractRequestToContract(contract);
                 return mapper.map(repository.save(contractToSave), helper);

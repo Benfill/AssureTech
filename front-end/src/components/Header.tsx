@@ -15,10 +15,16 @@ const Header = () => {
             Home
           </NavLink>
           <NavLink
-            to="/policies"
+            to="/policy/contracts"
             className="text-white text-base font-medium transition-all duration-300 ease-in-out hover:text-main"
           >
-            Policies
+            Contracts 
+          </NavLink>
+          <NavLink
+            to="/policy/claims"
+            className="text-white text-base font-medium transition-all duration-300 ease-in-out hover:text-main"
+          >
+            Claims 
           </NavLink>
           <NavLink
             to="/about"
