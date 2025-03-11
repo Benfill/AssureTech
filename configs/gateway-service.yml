@@ -18,7 +18,7 @@ spring:
         - id: policy-service
           uri: lb://policy-service
           predicates:
-            - Path=/api/user/contracts/**, /api/user/claims/**
+            - Path=/api/user/contracts/**,/api/user/claims/**
         - id: auth-service
           uri: lb://auth-service
           predicates:
