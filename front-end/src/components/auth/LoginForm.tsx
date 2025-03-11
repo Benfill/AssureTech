@@ -38,8 +38,7 @@ const LoginForm: React.FC<LoginFormProps> = ({
     setLoading(true);
 
     await onLogin(email, password)
-      .then((d) => {
-        console.log(d);
+      .then(() => {
         setSuccess("Logged in successfully");
       })
       .catch((e) => {

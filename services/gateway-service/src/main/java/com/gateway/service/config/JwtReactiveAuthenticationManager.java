@@ -28,7 +28,7 @@ public class JwtReactiveAuthenticationManager implements ReactiveAuthenticationM
 		.cast(BearerTokenAuthenticationToken.class).flatMap(token -> {
 		    Claims claims = jwtValidator.validateToken(token.getToken());
 		    List<SimpleGrantedAuthority> authorities = ((List<?>) claims.get("roles")).stream()
-			    .map(role -> new SimpleGrantedAuthority("ROLE_" + role)).collect(Collectors.toList());
+			    .map(role -> new SimpleGrantedAuthority(role.toString())).collect(Collectors.toList());
 		    return Mono.just(new PreAuthenticatedAuthenticationToken(claims.getSubject(), null, authorities));
 		});
     }

@@ -90,4 +90,9 @@ public class UserService implements IUserService {
 	return GlobalResp.builder().message("Roles assigned successfully").build();
     }
 
+    @Override
+    public List<Role> getAllRoles() {
+	return roleRepository.findAll();
+    }
+
 }

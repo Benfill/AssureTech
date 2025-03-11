@@ -5,5 +5,5 @@ export type Client = {
     email: string,
     address : string,
     phone: string,
-    userId: string
+    userId: number
 }

@@ -18,7 +18,7 @@ const StorageKeys = {
     static getItem<T>(key: StorageKeysType): T | null {
       try {
         const jsonValue = localStorage.getItem(key);
-        const value = jsonValue != null ? JSON.parse(jsonValue) : null;
+        const value = jsonValue != null ? JSON.parse(jsonValue) : null;        
         return value;
       } catch (e) {
         console.log(e);

@@ -6,6 +6,7 @@ import com.auth.service.dto.GlobalResp;
 import com.auth.service.dto.Request;
 import com.auth.service.dto.Response;
 import com.auth.service.dto.RolesDto;
+import com.auth.service.entity.Role;
 import com.auth.service.entity.User;
 
 public interface IUserService {
@@ -21,4 +22,6 @@ public interface IUserService {
     GlobalResp assignRoles(Long id, RolesDto roles);
 
     Response getDetails(Long id);
+
+    List<Role> getAllRoles();
 }

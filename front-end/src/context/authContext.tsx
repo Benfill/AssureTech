@@ -12,6 +12,7 @@ import { StorageKeys, StorageUtility } from "../utils/localStrorageUtil";
 
 interface AuthContextType {
   isAuthenticated: boolean;
+  isAdmin: boolean;
   user: User | null;
   login: (email: string, password: string) => Promise<void>;
   logout: () => void;
@@ -34,15 +35,18 @@ interface AuthProviderProps {
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
   const [user, setUser] = useState<User | null>(null);
 
   useEffect(() => {
-    const checker: User | null = StorageUtility.getItem(
-      StorageKeys.SESSION_USER
-    );
-    if (checker !== null) {
-      setUser(checker);
+    const user: User | null = StorageUtility.getItem(StorageKeys.SESSION_USER);
+
+    if (user) {
+      setUser(user);
       setIsAuthenticated(true);
+      setIsAdmin(
+        user.roles?.some((role) => role.name === "ROLE_ADMIN") ?? false
+      );
     }
   }, []);
 
@@ -51,10 +55,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     try {
       setIsAuthenticated(true);
       setUser(resp.data);
-      StorageUtility.setItem(
-        StorageKeys.SESSION_USER,
-        JSON.stringify(resp.data)
-      );
+      StorageUtility.setItem(StorageKeys.SESSION_USER, resp.data);
     } catch (e) {
       console.log(e);
     }
@@ -77,7 +78,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   return (
     <AuthContext.Provider
-      value={{ isAuthenticated, user, login, logout, register }}
+      value={{ isAuthenticated, isAdmin, user, login, logout, register }}
     >
       {children}
     </AuthContext.Provider>

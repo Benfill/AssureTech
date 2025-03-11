@@ -5,18 +5,19 @@ import { AuthProvider } from "./context/authContext";
 import Clients from "./components/clients/Clients";
 import AuthPage from "./pages/auth/AuthPage";
 import ProtectedRoute from "./utils/ProtectedRoute";
+import { Dashboard } from "./pages/auth/Dashboard";
 
 const App: React.FC = () => {
   return (
     <AuthProvider>
       <Router>
         <Header />
-        <div >
+        <div className="h-full">
           <Routes>
             {/* Protected Route */}
             <Route element={<ProtectedRoute />}>
               <Route path="/" element={<Clients />} />
-
+              <Route path="/dashboard" element={<Dashboard />} />
             </Route>
 
             {/* Public Route */}
