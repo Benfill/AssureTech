@@ -7,6 +7,12 @@ spring:
     url: jdbc:postgresql://localhost:5432/auth_service
     username: postgres
     password: password
+    hikari:
+      ssl: ${DB_SSL:false}
+      ssl-mode: ${DB_SSL_MODE:prefer}
+      max-lifetime: ${DB_MAX_LIFETIME:1500000}
+      idle-timeout: ${DB_IDLE_TIMEOUT:600000}
+      keepalive-time: ${DB_KEEPALIVE-TIME:300000}
   jpa:
     hibernate:
       ddl-auto: update
@@ -14,6 +20,8 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
+  flyway:
+    enabled: false 
 
   mvc:
     pathmatch:
